@@ -10,17 +10,20 @@ import (
 )
 
 // ConcurrentDict is thread safe map using sharding lock
+// 实现了一个线程安全的map使用了共享锁,其中包含多个分片（shard）
 type ConcurrentDict struct {
 	table      []*shard
 	count      int32
 	shardCount int
 }
 
+// shard 是 ConcurrentDict 的一个分片
 type shard struct {
-	m     map[string]interface{}
-	mutex sync.RWMutex
+	m     map[string]interface{} // 用于存储键值对的映射
+	mutex sync.RWMutex           // 保护映射的读写锁
 }
 
+// computeCapacity 将一个整数 n 向上取整为最近的 2 的幂次方。通过一系列的位运算，将 n 二进制表示中的所有低位设置为高位的 1，从而达到向上取整的效果
 func computeCapacity(param int) (size int) {
 	if param <= 16 {
 		return 16
@@ -38,6 +41,7 @@ func computeCapacity(param int) (size int) {
 }
 
 // MakeConcurrent creates ConcurrentDict with the given shard count
+// 创建
 func MakeConcurrent(shardCount int) *ConcurrentDict {
 	shardCount = computeCapacity(shardCount)
 	table := make([]*shard, shardCount)

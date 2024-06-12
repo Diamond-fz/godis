@@ -59,6 +59,7 @@ func NewStandaloneServer() *Server {
 		panic(fmt.Errorf("create tmp dir failed: %v", err))
 	}
 	// make db set
+	//创建 db的切片，大小为配置的Databases数字
 	server.dbSet = make([]*atomic.Value, config.Properties.Databases)
 	for i := range server.dbSet {
 		singleDB := makeDB()

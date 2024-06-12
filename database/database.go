@@ -19,6 +19,7 @@ const (
 )
 
 // DB stores data and execute user's commands
+// 负责存储数据和执行用户命令
 type DB struct {
 	index int
 	// key -> DataEntity
@@ -52,6 +53,7 @@ type CmdLine = [][]byte
 type UndoFunc func(db *DB, args [][]byte) []CmdLine
 
 // makeDB create DB instance
+// 创建db对象实例
 func makeDB() *DB {
 	db := &DB{
 		data:       dict.MakeConcurrent(dataDictSize),

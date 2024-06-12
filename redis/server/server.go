@@ -27,6 +27,7 @@ var (
 )
 
 // Handler implements tcp.Handler and serves as a redis server
+// 实现一个接口
 type Handler struct {
 	activeConn sync.Map // *client -> placeholder
 	db         database.DB

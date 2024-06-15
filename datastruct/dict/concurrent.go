@@ -41,7 +41,7 @@ func computeCapacity(param int) (size int) {
 }
 
 // MakeConcurrent creates ConcurrentDict with the given shard count
-// 创建
+// 创建一个默认的ConcurrentDict 给默认空指
 func MakeConcurrent(shardCount int) *ConcurrentDict {
 	shardCount = computeCapacity(shardCount)
 	table := make([]*shard, shardCount)

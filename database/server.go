@@ -61,9 +61,13 @@ func NewStandaloneServer() *Server {
 	// make db set
 	//创建 db的切片，大小为配置的Databases数字
 	server.dbSet = make([]*atomic.Value, config.Properties.Databases)
+	//对每一个db进行操作
 	for i := range server.dbSet {
+		//创建一个db
 		singleDB := makeDB()
+		//每一个db给一个索引
 		singleDB.index = i
+		//todo 到这里
 		holder := &atomic.Value{}
 		holder.Store(singleDB)
 		server.dbSet[i] = holder
